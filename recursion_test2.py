@@ -4,6 +4,7 @@ file_count = 0
 folder_count = 0
 total_size = 0
 files_by_extension = {}
+largest_files = []
 
 def scan(path):
     global file_count, folder_count, total_size, files_by_extension
@@ -22,18 +23,20 @@ def scan(path):
             
             # file size functionality
             try:
-                total_size += item.stat().st_size
+                size = item.stat().st_size
+                total_size += size
             except OSError: # OSError used here because file may disappear, may be locked or OS refuses metadata access during scanning
-                pass 
+                continue 
+            
+            # track largest files
+            largest_files.append((item, size))
             
             # file extension functionality
             extension = item.suffix.lower()
             if extension == "":
                 extension = "NO_EXTENSION"
-                
             files_by_extension[extension] = files_by_extension.get(extension, 0) + 1
-            
-            
+                
         elif item.is_dir():
             folder_count += 1
             scan(item)
@@ -47,3 +50,12 @@ print("Total size (bytes):", total_size)
 print("\nFiles by extension:")
 for extension, count in files_by_extension.items():
     print(extension, "->", count)
+
+# sort and get top 5
+largest_files.sort(key=lambda x: x[1], reverse=True)
+top5 = largest_files[:5]
+
+print("\nLargest 5 files:")
+for file, size in top5:
+    print(f"{file} -> {size} bytes")
+
