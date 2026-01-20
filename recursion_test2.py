@@ -44,18 +44,33 @@ def scan(path):
 start_path = Path("C:/Users/Admin/Desktop/Python/test_folder")
 scan(start_path)
 
+# sort and get top 5
+largest_files.sort(key=lambda x: x[1], reverse=True)
+top5 = largest_files[:5]
+
+# Converting bytes into more human-readable format
+def format_size(size):
+    if size <= 0:
+        return "0.00 B"
+    
+    for unit in ["B", "KB", "MB", "GB", "TB"]:
+        if size < 1024:
+            return f"{size:.2f} {unit}"
+        size /= 1024
+
+
 print("Files:", file_count)
 print("Folders:", folder_count)
 print("Total size (bytes):", total_size)
 print("\nFiles by extension:")
 for extension, count in files_by_extension.items():
-    print(extension, "->", count)
-
-# sort and get top 5
-largest_files.sort(key=lambda x: x[1], reverse=True)
-top5 = largest_files[:5]
+    print(f"{extension:8} -> {count} files")
 
 print("\nLargest 5 files:")
 for file, size in top5:
-    print(f"{file} -> {size} bytes")
+    print(f"{file} -> {format_size(size)}")
 
+print("\nSummary:")
+print(f"Total files:   {file_count}")
+print(f"Total folders: {folder_count}")
+print(f"Total size:    {format_size(total_size)}")
