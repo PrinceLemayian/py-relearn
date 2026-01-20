@@ -1,0 +1,3 @@
+To understand the differences between Phoenix, Elixir, and Ruby, it is helpful to first distinguish between what is a programming language and what is a web framework.
+
+Ruby and Elixir are the "tools" used to write code, while Phoenix is a "toolbox" (framework) built using Elixir to make building websites easier.

@@ -1,0 +1,1 @@
+Ruby is an Object-Oriented Programming (OOP) language created in the mid-90s. It was designed with a focus on human-readable syntax and programmer productivity.
