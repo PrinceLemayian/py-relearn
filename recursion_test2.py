@@ -6,7 +6,15 @@ folder_count = 0
 def scan(path):
     global file_count, folder_count
     
-    for item in path.iterdir():
+# since path.iterdir talks directly to the OS, if the folder is protected,
+# is a system directory or is locked/you don't have permissions the OS throws an error
+    try:
+        items = list(path.iterdir())
+    except PermissionError:
+        print("Permission denied:", path)
+        return
+    
+    for item in items:
         if item.is_file():
             file_count += 1
         elif item.is_dir():
