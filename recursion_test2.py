@@ -41,7 +41,7 @@ def scan(path):
             folder_count += 1
             scan(item)
             
-start_path = Path("C:/Users/Admin/Desktop/Python/test_folder")
+start_path = Path("C:/Users/Admin/Desktop/Directory-Tree-Analyzer/test_folder")
 scan(start_path)
 
 # sort and get top 5
